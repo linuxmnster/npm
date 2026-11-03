@@ -1,0 +1,196 @@
+
+
+Week-10: Complete MongoDB Program – Step-by-Step Code
+Below are all four programs in the exact order you need to write and execute them in your practical exam.
+Step 1: Create the Node.js project
+Open VS Code terminal and execute:
+mkdir Week10_MongoDB
+cd Week10_MongoDB
+npm init -y
+npm install mongodb@4.17.2
+
+
+Create these four JavaScript files:
+Week10_MongoDB/
+│
+├── demo_create_mongo_db.js
+├── demo_mongodb_createcollection.js
+├── demo_mongodb_insert_multiple.js
+└── demo_mongodb_find.js
+
+
+Step 2: Create a database
+File 1
+ demo_create_mongo_db.js
+var MongoClient = require('mongodb').MongoClient;
+
+var url = "mongodb://localhost:27017/mydb";
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+
+    console.log("Database created!");
+
+    db.close();
+});
+
+
+Run:
+node demo_create_mongo_db.js
+
+
+Output:
+Database created!
+
+
+Step 3: Create a collection
+File 2
+ demo_mongodb_createcollection.js
+var MongoClient = require('mongodb').MongoClient;
+
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+
+    var dbo = db.db("mydb");
+
+    dbo.createCollection("customers", function(err, res) {
+        if (err) throw err;
+
+        console.log("Collection created!");
+
+        db.close();
+    });
+});
+
+
+Run:
+node demo_mongodb_createcollection.js
+
+
+Output:
+Collection created!
+
+
+Step 4: Insert multiple documents
+File 3
+ demo_mongodb_insert_multiple.js
+var MongoClient = require('mongodb').MongoClient;
+
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+
+    var dbo = db.db("mydb");
+
+    var myobj = [
+        { name: 'John', address: 'Highway 71'},
+        { name: 'Peter', address: 'Lowstreet 4'},
+        { name: 'Amy', address: 'Apple st 652'},
+        { name: 'Hannah', address: 'Mountain 21'},
+        { name: 'Michael', address: 'Valley 345'},
+        { name: 'Sandy', address: 'Ocean blvd 2'},
+        { name: 'Betty', address: 'Green Grass 1'},
+        { name: 'Richard', address: 'Sky st 331'},
+        { name: 'Susan', address: 'One way 98'},
+        { name: 'Vicky', address: 'Yellow Garden 2'},
+        { name: 'Ben', address: 'Park Lane 38'},
+        { name: 'William', address: 'Central st 954'},
+        { name: 'Chuck', address: 'Main Road 989'},
+        { name: 'Viola', address: 'Sideway 1633'}
+    ];
+
+    dbo.collection("customers").insertMany(myobj, function(err, res) {
+        if (err) throw err;
+
+        console.log("Number of documents inserted: " + res.insertedCount);
+
+        db.close();
+    });
+});
+
+
+Run:
+node demo_mongodb_insert_multiple.js
+
+
+Output:
+Number of documents inserted: 14
+
+
+Step 5: Accessing elements (Finding documents)
+File 4
+ demo_mongodb_find.js
+var MongoClient = require('mongodb').MongoClient;
+
+var url = "mongodb://localhost:27017/";
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+
+    var dbo = db.db("mydb");
+
+    dbo.collection("customers").find({}).toArray(function(err, result) {
+        if (err) throw err;
+
+        console.log(result);
+
+        db.close();
+    });
+});
+
+
+Run:
+node demo_mongodb_find.js
+
+
+Output:
+[
+  {
+    _id: ObjectId("..."),
+    name: 'John',
+    address: 'Highway 71'
+  },
+  {
+    _id: ObjectId("..."),
+    name: 'Peter',
+    address: 'Lowstreet 4'
+  },
+  {
+    _id: ObjectId("..."),
+    name: 'Amy',
+    address: 'Apple st 652'
+  },
+  ...
+]
+
+
+The actual output displays all 14 documents with their automatically generated _id values.
+
+Step 6: Final execution order
+Keep this table ready for your practical exam.
+Order	Filename	Operation
+1	demo_create_mongo_db.js	Create database
+2	demo_mongodb_createcollection.js	Create collection
+3	demo_mongodb_insert_multiple.js	Insert documents
+4	demo_mongodb_find.js	Access documents
+
+Execute all commands in the VS Code terminal:
+node demo_create_mongo_db.js
+node demo_mongodb_createcollection.js
+node demo_mongodb_insert_multiple.js
+node demo_mongodb_find.js
+
+
+Important practical exam notes
+- Start MongoDB Server before running the programs.
+- Install mongodb@4.17.2 to support the callback syntax used in your syllabus.
+- Run the programs in the correct order.
+- Do not repeatedly execute the insertion program, otherwise duplicate records will be inserted.
+- Remember to use db.close() after completing each operation.
+
+One-line memory trick:
+
+Connect → Create Database → Create Collection → Insert Documents → Find Documents.
