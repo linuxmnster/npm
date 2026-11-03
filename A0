@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>AJAX Example</title>
+
+</head>
+
+<body>
+
+<h2>AJAX Request Example</h2>
+
+<button onclick="loadData()">Send Request</button>
+
+<p id="result"></p>
+
+<script>
+
+function loadData() {
+
+    var x = new XMLHttpRequest();
+
+    x.onload = function() {
+
+        if (x.status == 200) {
+
+            document.getElementById("result").innerHTML =
+
+                x.responseText;
+
+        }
+
+    };
+
+    x.open("GET",
+
+    "https://jsonplaceholder.typicode.com/posts/1", true);
+
+    x.send();
+
+}
+
+</script>
+
+</body>
+
+</html>
