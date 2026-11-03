@@ -1,0 +1,93 @@
+!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Password Strength Checker</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+
+        body {
+
+            font-family: Arial;
+
+            text-align: center;
+
+            margin-top: 100px;
+
+        }
+
+        input {
+
+            padding: 10px;
+
+            width: 300px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+        }
+
+        #result {
+
+            font-weight: bold;
+
+            margin-top: 15px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Password Strength Checker</h2>
+
+    <input type="password" id="pwd"
+
+    placeholder="Enter password">
+
+    <p id="result"></p>
+
+    <script>
+
+        $(function(){
+
+            $("#pwd").keyup(function(){
+
+                let p = $(this).val();
+
+                let msg = "Weak Password", color = "red";
+
+                if (p.length >= 8) {
+
+                    msg = "Strong Password";
+
+                    color = "green";
+
+                }
+
+                else if (p.length >= 5) {
+
+                    msg = "Medium Password";
+
+                    color = "orange";
+
+                }
+
+                $("#result").text(msg).css("color", color);
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
